@@ -18,7 +18,7 @@ node = Node('root', Node('left', Node('left.left')), Node('right'))
 assert deserialize(serialize(node)).left.left.val == 'left.left'
 ```
 """
-from bitarray import bitarray
+
 
 class Node:
     def __init__(self, val, left=None, right=None):
@@ -58,9 +58,9 @@ def _deserialize(root: Node, addr_int: int, val: str):
     current: Node = Node(None, None, root)
     previous: Node = root
 
-    for bit in bitarray("{0:b}".format(addr_int)):
+    for bit in "{0:b}".format(addr_int):
         previous = current
-        if bit:
+        if bit == '1':
             current = current.right
             if not current:
                 current = Node(None, None, None)
