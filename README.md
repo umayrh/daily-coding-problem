@@ -1,5 +1,26 @@
 # Daily Coding Problem
 
+### 2020-01-27 Tree coding
+
+Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and 
+deserialize(s), which deserializes the string back into the tree.
+
+For example, given the following Node class
+
+```
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+```
+The following test should pass:
+
+```
+node = Node('root', Node('left', Node('left.left')), Node('right'))
+assert deserialize(serialize(node)).left.left.val == 'left.left'
+```
+
 ### 2020-01-26 Set-minus-one product
 
 Given an array of integers, return a new array such that each element at index i of the new array is the product of all the numbers in the original array except the one at i.
