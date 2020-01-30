@@ -40,7 +40,7 @@ def set_minus_one_product_no_div(user_list: Vector):
 if __name__ == "__main__":
     input_list = [1, 2, 3, 4, 5]
     result = set_minus_one_product(input_list)
-    print(f"for {input_list}: {result}")
+    assert result == [120, 60, 40, 30, 24]
 
     result = set_minus_one_product_no_div(input_list)
-    print(f"for {input_list}: {result}")
+    assert result == [120, 60, 40, 30, 24]

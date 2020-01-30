@@ -25,9 +25,7 @@ def one_pass_pair_sum(user_list: Vector, k: int):
 if __name__ == "__main__":
     input_list = [10, 15, 3, 7]
     k = 17
-    result = one_pass_pair_sum(input_list, k)
-    print(f"{k} in {input_list}: {result}")
+    assert one_pass_pair_sum(input_list, k)
 
     k = 19
-    result = one_pass_pair_sum(input_list, k)
-    print(f"{k} in {input_list}: {result}")
+    assert not one_pass_pair_sum(input_list, k)
