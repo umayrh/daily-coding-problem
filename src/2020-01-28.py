@@ -44,17 +44,14 @@ def find_missing_int(vec: Vector):
             return 2
         else:
             return 1
+    # try to map the sequence to natural numbers: offset by min_val
     for idx in range(input_len):
         vec[idx] = vec[idx] - min_val if vec[idx] > 0 else 0
 
     for idx in range(input_len):
-        # try to map the sequence to natural numbers: offset by min_val
-        item = vec[idx]
-        new_val = item - min_val if item > 0 else item
         # swap till idx find its corresponding value (which is min_val for idx 0)
-        while input_len > new_val != idx and vec[idx] != vec[new_val]:
-            _swap(vec, idx, new_val)
-            new_val = vec[idx] - min_val if item > 0 else item
+        while input_len > vec[idx] != idx and vec[idx] != vec[vec[idx]]:
+            _swap(vec, idx, vec[idx])
     for idx in range(input_len - 1):
         # find a gap
         if vec[idx] < vec[idx + 1] - 1:
@@ -76,3 +73,5 @@ if __name__ == "__main__":
     assert find_missing_int([3, 1, 2, 0, 6, 5, 4, 8, 10, 9]) == 7
     assert find_missing_int([1, 1, 1, 1]) == 2
     assert find_missing_int([10, 100, 10000, 100000]) == 1
+    assert find_missing_int([9, 8, 7, 6, 5, 4, 3, 2, 1]) == 10
+    assert find_missing_int([9, 8, 7, 6, 5, 4, 3, 2, 1, 11, 111, 1111]) == 10
