@@ -1,5 +1,22 @@
 # Daily Coding Problem
 
+### 2020-02-01 Unival subtrees
+
+A unival tree (which stands for "universal value") is a tree where all nodes under it have the same value.
+
+Given the root to a binary tree, count the number of unival subtrees.
+
+For example, the following tree has 5 unival subtrees:
+```
+   0
+  / \
+ 1   0
+    / \
+   1   0
+  / \
+ 1   1
+```
+
 ### 2020-01-31 Decoding count
 
 Given the mapping a = 1, b = 2, ... z = 26, and an encoded message, count the number of ways it can be decoded.
