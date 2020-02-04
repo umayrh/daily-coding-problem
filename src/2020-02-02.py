@@ -13,34 +13,36 @@ Vector = List[int]
 
 def sum_nonadjacent(vec: Vector):
     """
+    This solution is based on Jen Haskell's pseudocode.
     :param vec: list of integers
     :return: largest sum of non-adjacent numbers
     """
     if not vec:
         return 0
-    vec_len = len(vec)
-    max_val = 0
-    max_idx = -1
-    for idx in range(vec_len):
-        if max_val > vec[idx]:
-            max_val = vec[idx]
-            max_idx = idx
-    # max val is a good place to start to construct two sequences:
-    # one including max_val, and another including the max of values adjacent to max_val.
-    # Each sequence is composed of two subsequences: one with idx increasing, the other decreasing.
-    max_seq_sum = max_val
-    for idx in range(max_idx + 2, vec_len, 1):
-        # for each non-adjacent, decide whether to use it or its neighbor
-        # ...
-        if max_seq_sum > max_seq_sum + vec[idx]:
-            max_seq_sum = max_seq_sum + vec[idx]
-    for idx in range(0, max_idx - 1, 1):
-        if max_seq_sum > max_seq_sum + vec[idx]:
-            max_seq_sum = max_seq_sum + vec[idx]
-    # second sequence
+    last_pos_idx = -1
+    val_last_pos = 0
+
+    for idx in range(len(vec)):
+        if vec[idx] > 0:
+            val_idx_minus2 = vec[idx - 2] if idx - 2 >= 0 and vec[idx - 2] >= 0 else 0
+            val_idx_minus3 = vec[idx - 3] if idx - 3 >= 0 and vec[idx - 3] >= 0 else 0
+            vec[idx] = max(val_idx_minus2, val_idx_minus3, val_last_pos) + vec[idx]
+        last_pos_idx = idx - 1 if idx - 1 >= 0 and vec[idx - 1] > val_last_pos else last_pos_idx
+        val_last_pos = vec[last_pos_idx] if last_pos_idx > 0 else val_last_pos
+    return max(max(vec), 0)
 
 
 if __name__ == "__main__":
+    assert sum_nonadjacent([2]) == 2
+    assert sum_nonadjacent([0]) == 0
+    assert sum_nonadjacent([-1]) == 0
+
+    assert sum_nonadjacent([-1, 0, 0]) == 0
+    assert sum_nonadjacent([-1, 0, 1]) == 1
+
     assert sum_nonadjacent([2, 4, 6, 2, 5]) == 13
     assert sum_nonadjacent([5, 1, 1, 5]) == 10
     assert sum_nonadjacent([20, 23, 10]) == 30
+    assert sum_nonadjacent([2, -4, 6, -2, 5]) == 13
+    assert sum_nonadjacent([-1, -9, 2, -4, -4, 0, 1, 0, 0, -2, 5]) == 8
+    assert sum_nonadjacent([-5, -3, 0, 8, 2, 0, -1, 0, 0, -2, 5]) == 13
