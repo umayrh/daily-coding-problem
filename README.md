@@ -7,11 +7,12 @@ return all strings in the set that have `s` as a prefix.
 
 For example, given the query string `de` and the set of strings `[dog, deer, deal]`, return `[deer, deal]`.
 
-Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries.
+Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries. ([solution](./src/2020-02-04.py))
 
 ### 2020-02-03 Job scheduler
 
-Implement a job scheduler which takes in a function f and an integer n, and calls f after n milliseconds.
+Implement a job scheduler which takes in a function f and an integer n, and calls f after n milliseconds. 
+([solution](./src/2020-02-03.py))
 
 ### 2020-02-02 Non-adjacent subset-sum
 
@@ -21,7 +22,7 @@ Numbers can be 0 or negative.
 For example, `[2, 4, 6, 2, 5]` should return 13, since we pick 2, 6, and 5. `[5, 1, 1, 5]` should return 10, 
 since we pick 5 and 5.
 
-Follow-up: Can you do this in O(N) time and constant space?
+Follow-up: Can you do this in O(N) time and constant space? ([solution](./src/2020-02-02.py))
 
 ### 2020-02-01 Unival subtrees
 
@@ -39,6 +40,7 @@ For example, the following tree has 5 unival subtrees:
   / \
  1   1
 ```
+([solution](./src/2020-02-01.py))
 
 ### 2020-01-31 Decoding count
 
@@ -46,7 +48,7 @@ Given the mapping a = 1, b = 2, ... z = 26, and an encoded message, count the nu
 
 For example, the message '111' would give 3, since it could be decoded as 'aaa', 'ka', and 'ak'.
 
-You can assume that the messages are decodable. For example, '001' is not allowed.
+You can assume that the messages are decodable. For example, '001' is not allowed. ([solution](./src/2020-01-31.py))
 
 ### 2020-01-30 Double XOR
 
@@ -56,7 +58,8 @@ Implement an XOR linked list; it has an `add(element)` which adds the element to
 `get(index)` which returns the node at index.
 
 If using a language that has no pointers (such as Python), you can assume you have access to 
-`get_pointer` and `dereference_pointer` functions that converts between nodes and memory addresses.
+`get_pointer` and `dereference_pointer` functions that converts between nodes and memory addresses. 
+([solution](./src/2020-01-30.py))
 
 ### 2020-01-29 Functional pairing
 
@@ -71,7 +74,7 @@ def cons(a, b):
         return f(a, b)
     return pair
 ```
-Implement `car` and `cdr`.
+Implement `car` and `cdr`. ([solution](./src/2020-01-29.py))
 
 ### 2020-01-28 Missing link
 
@@ -81,7 +84,7 @@ duplicates and negative numbers as well.
 
 For example, the input `[3, 4, -1, 1]` should give `2`. The input `[1, 2, 0]` should give `3`.
 
-You can modify the input array in-place.
+You can modify the input array in-place. ([solution](./src/2020-01-28.py))
 
 ### 2020-01-27 Tree coding
 
@@ -103,7 +106,8 @@ The following test should pass:
 node = Node('root', Node('left', Node('left.left')), Node('right'))
 assert deserialize(serialize(node)).left.left.val == 'left.left'
 ```
-
+([solution](./src/2020-01-27.py))
+ 
 ### 2020-01-26 Set-minus-one product
 
 Given an array of integers, return a new array such that each element at index `i` of the new array is the 
@@ -112,7 +116,7 @@ product of all the numbers in the original array except the one at `i`.
 For example, if our input was `[1, 2, 3, 4, 5]`, the expected output would be `[120, 60, 40, 30, 24]`. If 
 our input was `[3, 2, 1]`, the expected output would be `[2, 3, 6]`.
 
-Follow-up: what if you can't use division? 
+Follow-up: what if you can't use division? ([solution](./src/2020-01-26.py))
 
 ### 2020-01-25 Subset (pair) sum
 
@@ -120,4 +124,4 @@ Given a list of numbers and a number `k`, return whether any two numbers from th
 
 For example, given `[10, 15, 3, 7]` and `k` of `17`, return `true` since 10 + 7 is 17.
 
-Bonus: Can you do this in one pass?
+Bonus: Can you do this in one pass? ([solution](./src/2020-01-25.py))
