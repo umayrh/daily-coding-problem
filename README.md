@@ -16,6 +16,7 @@ For example, if N is 4, then there are 5 unique ways:
 
 What if, instead of being able to climb 1 or 2 steps at a time, you could climb any number from a set 
 of positive integers X? For example, if X = {1, 3, 5}, you could climb 1, 3, or 5 steps at a time.
+([solution](./src/2020-02-05.py))
 
 ### 2020-02-04 Prefix search
 
@@ -24,7 +25,8 @@ return all strings in the set that have `s` as a prefix.
 
 For example, given the query string `de` and the set of strings `[dog, deer, deal]`, return `[deer, deal]`.
 
-Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries. ([solution](./src/2020-02-04.py))
+Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries. 
+([solution](./src/2020-02-04.py))
 
 ### 2020-02-03 Job scheduler
 
