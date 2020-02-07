@@ -1,5 +1,11 @@
 # Daily Coding Problem
 
+### 2020-02-06
+
+Given an integer k and a string s, find the length of the longest substring that contains at most k distinct characters.
+
+For example, given s = "abcba" and k = 2, the longest substring with k distinct characters is "bcb".
+
 ### 2020-02-05 Climbing stairs
 
 There exists a staircase with N steps, and you can climb up either 1 or 2 steps at a time. Given N, 
