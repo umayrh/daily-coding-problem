@@ -1,10 +1,17 @@
 # Daily Coding Problem
 
-### 2020-02-06
+### 2020-02-07 Sampling Pi
+
+The area of a circle is defined as πr^2. Estimate π to 3 decimal places using a Monte Carlo method.
+
+Hint: The basic equation of a circle is x2 + y2 = r2. ([solution](./src/2020-02-07.py))
+
+### 2020-02-06 
 
 Given an integer k and a string s, find the length of the longest substring that contains at most k distinct characters.
 
 For example, given s = "abcba" and k = 2, the longest substring with k distinct characters is "bcb".
+([solution](./src/2020-02-06.py))
 
 ### 2020-02-05 Climbing stairs
 
