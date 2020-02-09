@@ -55,6 +55,7 @@ def _longest_substring3(s: str, k: int, st: int, exclude: set, cache: dict):
                 result = cache[idx]
         else:
             cache[idx] = prefix + suffix
+        print(f"{idx}: {s}: {suffix1}, {suffix2}")
         if len(result) > len(max_result):
             max_result = result
     return max_result

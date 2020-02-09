@@ -1,8 +1,21 @@
 # Daily Coding Problem
 
-### 2020-02-07 Reservoir sampling
+### 2020-02-09
 
-Given a stream of elements too large to store in memory, pick a random element from the stream with uniform probability.
+You run an e-commerce website and want to record the last `N` `order` ids in a log. Implement a 
+data structure to accomplish this, with the following API:
+
+```
+record(order_id): adds the order_id to the log
+get_last(i): gets the ith last element from the log. i is guaranteed to be smaller than or equal to N.
+You should be as efficient with time and space as possible.
+```
+([solution](./src/2020-02-09.py))
+
+### 2020-02-08 Reservoir sampling
+
+Given a stream of elements too large to store in memory, pick a random element from the stream with 
+uniform probability. ([solution](./src/2020-02-08.py))
 
 ### 2020-02-07 Sampling Pi
 
