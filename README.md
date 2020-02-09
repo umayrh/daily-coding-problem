@@ -1,12 +1,16 @@
 # Daily Coding Problem
 
+### 2020-02-07 Reservoir sampling
+
+Given a stream of elements too large to store in memory, pick a random element from the stream with uniform probability.
+
 ### 2020-02-07 Sampling Pi
 
 The area of a circle is defined as πr^2. Estimate π to 3 decimal places using a Monte Carlo method.
 
 Hint: The basic equation of a circle is x2 + y2 = r2. ([solution](./src/2020-02-07.py))
 
-### 2020-02-06 
+### 2020-02-06 Longest-distict substring
 
 Given an integer k and a string s, find the length of the longest substring that contains at most k distinct characters.
 
@@ -82,7 +86,7 @@ For example, the message '111' would give 3, since it could be decoded as 'aaa',
 
 You can assume that the messages are decodable. For example, '001' is not allowed. ([solution](./src/2020-01-31.py))
 
-### 2020-01-30 Double XOR
+### 2020-01-30 Double-XOR linked-list
 
 An XOR linked list is a more memory efficient doubly linked list. Instead of each node holding next 
 and prev fields, it holds a field named both, which is an XOR of the next node and the previous node. 
