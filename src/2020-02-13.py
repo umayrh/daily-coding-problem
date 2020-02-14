@@ -10,7 +10,7 @@ Do this in O(M + N) time (where M and N are the lengths of the lists) and consta
 
 
 class Node:
-    def __init__(self, val, next_node = None):
+    def __init__(self, val, next_node=None):
         self.val = val
         self.next = next_node
 
@@ -24,7 +24,7 @@ def _len(v: Node) -> int:
     return len_v
 
 
-def do_lists_intersect(list1: Node, list2: Node) -> Node:
+def get_intersection(list1: Node, list2: Node) -> Node:
     if not list1 or not list2:
         return None
     if list1 == list2:
@@ -52,13 +52,13 @@ if __name__ == "__main__":
     c = Node(8, Node(10))
     a = Node(3, Node(7, c))
     b = Node(99, Node(1, c))
-    assert do_lists_intersect(a, b) == c
+    assert get_intersection(a, b) == c
 
     a = Node(3, Node(7))
     b = Node(99, Node(1))
-    assert do_lists_intersect(a, b) is None
+    assert get_intersection(a, b) is None
 
     c = Node(8, Node(10))
     a = Node(3, Node(7, c))
     b = Node(99, Node(1, Node(23, Node(46, Node(87, c)))))
-    assert do_lists_intersect(a, b) == c
+    assert get_intersection(a, b) == c
