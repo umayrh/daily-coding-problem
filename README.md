@@ -1,6 +1,19 @@
 # Daily Coding Problem
 
-### 2020-02-13 Range intersections
+### 2020-02-15 
+
+Given a dictionary of words and a string made up of those words (no spaces), return the original 
+sentence in a list. If there is more than one possible reconstruction, return any of them. If there 
+is no possible reconstruction, then return null.
+
+For example, given the set of words 'quick', 'brown', 'the', 'fox', and the string "thequickbrownfox", 
+you should return ['the', 'quick', 'brown', 'fox'].
+
+Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the string "bedbathandbeyond", 
+return either ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond']. 
+([solution](./src/2020-02-15.py))
+
+### 2020-02-14 Range intersections
 
 Given an array of time intervals (start, end) for classroom lectures (possibly overlapping), 
 find the minimum number of rooms required.
