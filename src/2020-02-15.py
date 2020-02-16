@@ -46,3 +46,5 @@ if __name__ == "__main__":
     assert result == {'the', 'quick', 'brown', 'fox'}, result
     result = possible_words({'bed', 'bath', 'bedbath', 'and', 'beyond'}, "bedbathandbeyond")
     assert result == {'bed', 'bath', 'and', 'beyond'} or result == {'bedbath', 'and', 'beyond'}, result
+    result = possible_words({'bed', 'bath', 'bedbath', 'and', 'beyond'}, "thequickbrownfox")
+    assert result == set(), result
