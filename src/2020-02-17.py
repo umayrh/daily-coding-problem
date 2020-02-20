@@ -29,7 +29,7 @@ class Node:
         self.parent: Node = parent_node
         self.left: Node = left_node
         self.right: Node = right_node
-        self.locked_antecedent = parent_node.locked_antecedent | parent_node.locked if parent_node else False
+        self.locked_descendant = False
         if self.left:
             self.left.parent = self
         if self.right:
@@ -141,5 +141,5 @@ if __name__ == "__main__":
     assert lock(root) is True
     assert unlock(root) is True
 
-    assert lock(root.right) is True
+    assert lock(root.left.left.left) is True
     assert unlock(root) is False
