@@ -17,7 +17,7 @@ The same regular expression on the string "chats" should return false.
 
 def matches(regex: str, word: str) -> bool:
     if not regex:
-        return False
+        return not word
     curr_idx = 0
     prev_star_substr = ""
     for star_substr in regex.split("*"):
@@ -54,21 +54,34 @@ def matches(regex: str, word: str) -> bool:
             prev_dot_idx = next_dot_idx + 1
             next_dot_idx = star_substr.find(".", prev_dot_idx)
         prev_star_substr = star_substr
-        # print(f"{regex}, {word}: {curr_idx}")
-    if curr_idx < len(word) and regex[-1] != "*":
-        return False
+    # Sanitize regex by merging multiple, contiguous stars.
+    sanitized_regex = regex[0]
+    for idx in range(1, len(regex)):
+        if regex[idx - 1] != "*":
+            sanitized_regex = sanitized_regex + regex[idx]
+        elif regex[idx] != "*":
+            sanitized_regex = sanitized_regex + regex[idx]
+    # Ugh, what a mess.
+    # print(f"{regex}/{word}: {curr_idx}, {sanitized_regex}")
+    if curr_idx < len(word):
+        if sanitized_regex[-1] != "*":
+            return False
+        if len(sanitized_regex) > 1:
+            if sanitized_regex[-2] == ".":
+                return True
+            else:
+                for idx in range(curr_idx, len(word)):
+                    if word[idx] != sanitized_regex[-2]:
+                        return False
     return True
 
 
 if __name__ == "__main__":
-    assert matches("ra.", "ray") is True
-    assert matches("ra.", "raymond") is False
-    assert matches(".*at", "chat") is True
-    assert matches(".*at", "chats") is False
-
-    assert matches("*", "") is True
-    assert matches("*******", "") is True
     assert matches(".", "") is False
+    assert matches("", "") is True
+    assert matches("*", "") is True
+    assert matches("*", "aaa") is True
+    assert matches("*******", "") is True
     assert matches(".*", "") is False
     assert matches(".", "a") is True
     assert matches(".", "aa") is False
@@ -76,13 +89,19 @@ if __name__ == "__main__":
     assert matches(".*", "a") is True
     assert matches(".*", "aaa") is True
 
+    assert matches("ra.", "ray") is True
+    assert matches("ra.", "raymond") is False
+    assert matches(".*at", "chat") is True
+    assert matches(".*at", "chats") is False
+
     assert matches("*abc", "abc") is True
     assert matches("ab*c", "abc") is True
     assert matches("abc*", "abc") is True
     assert matches("a*b*c*", "abc") is True
     assert matches("*abc", "abcd") is False
-
     assert matches("*abc", "xyzabcd") is False
-
-    ### is this correct?
-    assert matches("*abc**", "abcccccd") is True
+    assert matches("*abc*", "xyzabcd") is False
+    assert matches("*abc.*", "xyzabcd") is True
+    assert matches("*abc**", "abcccccd") is False
+    assert matches("*abc**", "abccccc") is True
+    assert matches("*abc.**", "abcccccd") is True
