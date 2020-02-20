@@ -24,14 +24,16 @@ def matches(regex: str, word: str) -> bool:
         if not star_substr:
             continue
         prev_dot_idx = 0
-        # Looks for zero or more matchings of the preceding element
+        # Look for zero or more matchings of the preceding element.
         if prev_star_substr and prev_star_substr[-1] != ".":
             while star_substr[prev_dot_idx] == prev_star_substr[-1]:
                 curr_idx = curr_idx + 1
                 prev_dot_idx = prev_dot_idx + 1
+        # Parse by dot, if found. Otherwise, inhale the whole substring.
         next_dot_idx = star_substr.find(".", prev_dot_idx)
         if next_dot_idx < prev_dot_idx:
             next_dot_idx = len(star_substr)
+        # Simulate do-while here.
         while prev_dot_idx <= next_dot_idx:
             if next_dot_idx < prev_dot_idx:
                 next_dot_idx = len(star_substr)
@@ -40,6 +42,7 @@ def matches(regex: str, word: str) -> bool:
                 if curr_idx >= len(word):
                     return False
                 curr_idx = curr_idx + 1
+            # Extract the dot-suffixed substring, excluding dot
             else:
                 dot_substr = star_substr[prev_dot_idx:next_dot_idx]
                 substr_idx = word.find(dot_substr, curr_idx)

@@ -1,5 +1,9 @@
 # Daily Coding Problem
 
+### 2020-02-18 Reg ex
+
+Needs some major spaghetti cleanup. Can't reason about correctness.
+
 #### 2020-02-17 Binary-tree locking
 
 This is still O(2^h) not O(h).
