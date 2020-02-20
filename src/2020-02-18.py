@@ -78,5 +78,8 @@ if __name__ == "__main__":
     assert matches("abc*", "abc") is True
     assert matches("a*b*c*", "abc") is True
     assert matches("*abc", "abcd") is False
+
+    assert matches("*abc", "xyzabcd") is False
+
     ### is this correct?
     assert matches("*abc**", "abcccccd") is True

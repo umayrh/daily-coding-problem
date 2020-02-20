@@ -1,5 +1,14 @@
 # Daily Coding Problem
 
+### 2020-02-19 Removing k-last
+
+Given a singly linked list and an integer k, remove the kth last element from the list. 
+k is guaranteed to be smaller than the length of the list.
+
+The list is very long, so making more than one pass is prohibitively expensive.
+
+Do this in constant space and in one pass.
+
 ### 2020-02-18 Reg ex
 
 Implement regular expression matching with the following special characters:
