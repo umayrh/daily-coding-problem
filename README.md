@@ -1,5 +1,14 @@
 # Daily Coding Problem
 
+### 2020-02-20 Balancing brackets
+
+Given a string of round, curly, and square open and closing brackets, return whether the 
+brackets are balanced (well-formed).
+
+For example, given the string `"([])[]({})"`, you should return true.
+
+Given the string `"([)]"` or `"((()"`, you should return false.
+
 ### 2020-02-19 Removing k-last
 
 Given a singly linked list and an integer k, remove the kth last element from the list. 
