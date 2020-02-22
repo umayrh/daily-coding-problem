@@ -1,5 +1,15 @@
 # Daily Coding Problem
 
+### 2020-02-22 Run-length encoding
+
+Run-length encoding is a fast and simple method of encoding strings. The basic idea is to represent 
+repeated successive characters as a single count and character. For example, the string 
+"AAAABBBCCDAA" would be encoded as "4A3B2C1D2A".
+
+Implement run-length encoding and decoding. You can assume the string to be encoded have no digits 
+and consists solely of alphabetic characters. You can assume the string to be decoded is valid. 
+([solution](./src/2020-02-22.py))
+
 ### 2020-02-21 Justifying text
 
 Write an algorithm to justify text. Given a sequence of words and an integer line length k, return a 
@@ -197,11 +207,11 @@ The name of a directory or sub-directory will not contain a period. ([solution](
 You run an e-commerce website and want to record the last `N` `order` ids in a log. Implement a 
 data structure to accomplish this, with the following API:
 
-```
-record(order_id): adds the order_id to the log
-get_last(i): gets the ith last element from the log. i is guaranteed to be smaller than or equal to N.
+* `record(order_id)`: adds the order_id to the log
+* `get_last(i)`: gets the ith last element from the log. i is guaranteed to be smaller than or equal to N.
+
 You should be as efficient with time and space as possible.
-```
+
 ([solution](./src/2020-02-09.py))
 
 ### 2020-02-08 Reservoir sampling

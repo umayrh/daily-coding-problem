@@ -13,6 +13,7 @@ Do this in O(n) time and O(k) space. You can modify the input array in-place and
 to store the results. You can simply print them out as you compute them.
 TODO
 """
+import heapq
 from random import randint
 from typing import List
 Vector = List[int]
@@ -86,20 +87,14 @@ def subset_max(vec: Vector, k: int):
     """
     if not vec:
         return vec
-    max_list: Vector = list()
-    last_max = vec[0]
+    max_heap = []
     count = 0
     for item in vec:
-        if count < k:
-            max_list.append(item)
-            last_max = max(item, last_max)
-        else:
-            removed = max_list[count % k]
-            if removed == last_max:
-                pass
-            max_list[count % k] = item
+        if count >= k:
+            vec[count % k] = heapq.heappop(max_heap)
+        heapq.heappush(max_heap, item)
         count = count + 1
-    pass
+    return vec
 
 
 if __name__ == "__main__":
