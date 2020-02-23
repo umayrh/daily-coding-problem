@@ -10,7 +10,7 @@ This is still O(2^h) not O(h).
 
 #### 2020-02-11 Subset max
 
-Can't figure out a solution better than O(k lg k) ~ O (n lg n)
+Can't figure out a solution better than O(n lg k) ~ O (n lg n) and O(k) space.
 
 #### 2020-02-06 Longest-distict substring
 
