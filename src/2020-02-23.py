@@ -15,11 +15,11 @@ from typing import List
 Vector = List[int]
 
 
-def _volume(vec: Vector, st: int, en: int) -> int:
+def _integrate_trough(vec: Vector, st: int, en: int) -> int:
     print(f"{st}, {en}: {vec[st:en]}")
     if st >= en - 1:
         return 0
-    min_vol = min(vec[st], vec[en -1])
+    min_vol = min(vec[st], vec[en - 1])
     volume = 0
     for idx in range(st, en):
         volume += max(min_vol - vec[idx], 0)
@@ -30,31 +30,38 @@ def integrate(vec: Vector):
     vec_len = len(vec)
     if not vec or vec_len <= 2:
         return 0
-    idx = 1
-    idx_st = 0
-    volume = 0
+    trough_en = 1
+    trough_st = 0
+    total_volume = 0
     # Discount for the trough at the beginning of the sequence
-    while idx < vec_len and vec[idx] >= vec[idx_st]:
-        idx += 1
-    idx_st = idx - 1
+    while trough_en < vec_len and vec[trough_en] >= vec[trough_st]:
+        trough_en += 1
+    trough_st = trough_en - 1
     # Starting from the top of the first trough
-    while idx < vec_len:
-        if vec[idx] >= vec[idx_st]:
+    while trough_en < vec_len:
+        if vec[trough_en] >= vec[trough_st]:
             # Find the end of the trough
-            while idx < vec_len and vec[idx] >= vec[idx_st]:
-                idx += 1
-            volume += _volume(vec, idx_st, idx)
+            while trough_en < vec_len and vec[trough_en] >= vec[trough_st]:
+                trough_en += 1
+            total_volume += _integrate_trough(vec, trough_st, trough_en)
             # The end of one abyss is the beginning of another
-            idx_st = idx - 1
-        idx += 1
-    print(f"volume: {volume}")
-    return volume
+            trough_st = trough_en - 1
+        trough_en += 1
+    print(f"volume: {total_volume}")
+    return total_volume
 
 
 if __name__ == "__main__":
     assert integrate([2, 1, 2]) == 1
     assert integrate([3, 0, 1, 3, 0, 5]) == 8
 
+    assert integrate([]) == 0
+    assert integrate([1]) == 0
+    assert integrate([10, 1]) == 0
+    assert integrate([10, 100]) == 0
     assert integrate([1, 2, 3, 4, 5]) == 0
     assert integrate([5, 4, 3, 2, 1]) == 0
+    assert integrate([5, 4, 3, 2, 1, 2, 3, 4, 5]) == 16
     assert integrate([2, 1, 2, 1, 2, 1]) == 2
+    assert integrate([2, 1, 2, 1, 2, 1, 2]) == 3
+    assert integrate([10, 2, 1, 3, 1, 2, 1, 10]) == 50
