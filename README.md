@@ -1,5 +1,14 @@
 # Daily Coding Problem
 
+### 2020-02-24 Calculating edit-distance
+
+The edit distance between two strings refers to the minimum number of character insertions, 
+deletions, and substitutions required to change one string to the other. For example, 
+the edit distance between “kitten” and “sitting” is three: substitute the “k” for “s”, 
+substitute the “e” for “i”, and append a “g”.
+
+Given two strings, compute the edit distance between them. ([solution](./src/2020-02-24.py))
+
 ### 2020-02-23 Negative-space integration
 
 You are given an array of non-negative integers that represents a two-dimensional elevation map where 

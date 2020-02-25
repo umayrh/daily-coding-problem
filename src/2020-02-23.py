@@ -78,3 +78,4 @@ if __name__ == "__main__":
     assert integrate([2, 1, 2, 1, 2, 1, 2]) == 3
     assert integrate([10, 2, 1, 3, 1, 2, 1, 10]) == 50
     assert integrate([10, 2, 1, 3, 1, 2, 1]) == 4
+    assert integrate([10, 2, 1, 3, 1, 2, 1, 9]) == 49
