@@ -28,19 +28,25 @@ def _integrate_trough(vec: Vector, st: int, en: int) -> int:
 
 def integrate(vec: Vector):
     vec_len = len(vec)
-    if not vec or vec_len <= 2:
+    if vec_len <= 2:
         return 0
-    trough_en = [1, 1]
-    trough_st = [0, 0]
-    total_volume = [0, 0]
+    trough_en = [1, vec_len - 2, 1]
+    trough_st = [0, vec_len - 1, 0]
+    total_volume = [0, 0, 0]
+
     # Discount for the unbounded basin at the beginning of the sequence
     while trough_en[0] < vec_len and vec[trough_en[0]] >= vec[trough_st[0]]:
         trough_en[0] += 1
-        trough_en[1] += 1
+        trough_en[2] += 1
     trough_st[0] = trough_en[0] - 1
-    trough_st[1] = trough_en[1] - 1
+    trough_st[2] = trough_en[2] - 1
+    # Discount for the unbounded basin at the beginning of the sequence
+    while trough_en[1] >= 0 and vec[trough_en[1]] >= vec[trough_st[1]]:
+        trough_en[1] -= 1
+    trough_st[1] = trough_en[1] + 1
+
     # Starting from the top of the first trough
-    while trough_en[0] < vec_len or trough_en[1] < vec_len:
+    while trough_en[0] < vec_len or trough_en[2] < vec_len or trough_en[1] >= 0:
         # Case 1: a wall at least as high as the start of this trough
         if trough_en[0] < vec_len and vec[trough_en[0]] >= vec[trough_st[0]]:
             # Find the end of the trough
@@ -49,18 +55,23 @@ def integrate(vec: Vector):
             total_volume[0] += _integrate_trough(vec, trough_st[0], trough_en[0])
             # The end of one abyss is the beginning of another
             trough_st[0] = trough_en[0] - 1
-        # Case 2: no wall as high as the start but there are intermediate troughs
-        if trough_en[1] < vec_len and vec[trough_en[1]] >= vec[trough_en[1] - 1]:
-            # Find the end of the trough
-            while trough_en[1] < vec_len and vec[trough_en[1]] >= vec[trough_en[1] - 1]:
-                trough_en[1] += 1
-            total_volume[1] += _integrate_trough(vec, trough_st[1], trough_en[1])
-            # The end of one abyss is the beginning of another
-            trough_st[1] = trough_en[1] - 1
+        # Case 2: starting at the end, a wall at least as high as the start of this trough
+        if trough_en[1] >= 0 and vec[trough_en[1]] >= vec[trough_st[1]]:
+            while trough_en[1] >= 0 and vec[trough_en[1]] >= vec[trough_st[1]]:
+                trough_en[1] -= 1
+            total_volume[1] += _integrate_trough(vec, trough_en[1] + 1, trough_st[1] + 1)
+            trough_st[1] = trough_en[1] + 1
+        # Case 3: no wall as high as the start but there are intermediate troughs
+        if trough_en[2] < vec_len and vec[trough_en[2]] >= vec[trough_en[2] - 1]:
+            while trough_en[2] < vec_len and vec[trough_en[2]] >= vec[trough_en[2] - 1]:
+                trough_en[2] += 1
+            total_volume[2] += _integrate_trough(vec, trough_st[2], trough_en[2])
+            trough_st[2] = trough_en[2] - 1
         trough_en[0] += 1
-        trough_en[1] += 1
-    print(f"volume: {total_volume[0]} {total_volume[1]}")
-    return max(total_volume[0], total_volume[1])
+        trough_en[1] -= 1
+        trough_en[2] += 1
+    print(f"volume: {total_volume}")
+    return max(total_volume)
 
 
 if __name__ == "__main__":
@@ -78,4 +89,4 @@ if __name__ == "__main__":
     assert integrate([2, 1, 2, 1, 2, 1, 2]) == 3
     assert integrate([10, 2, 1, 3, 1, 2, 1, 10]) == 50
     assert integrate([10, 2, 1, 3, 1, 2, 1]) == 4
-    assert integrate([10, 2, 1, 3, 1, 2, 1, 9]) == 49
+    assert integrate([10, 2, 1, 3, 1, 2, 1, 9]) == 44
