@@ -40,7 +40,7 @@ def integrate(vec: Vector):
         trough_en[2] += 1
     trough_st[0] = trough_en[0] - 1
     trough_st[2] = trough_en[2] - 1
-    # Discount for the unbounded basin at the beginning of the sequence
+    # Starting at the end, discount for the unbounded basin at the beginning of the sequence
     while trough_en[1] >= 0 and vec[trough_en[1]] >= vec[trough_st[1]]:
         trough_en[1] -= 1
     trough_st[1] = trough_en[1] + 1
@@ -82,11 +82,16 @@ if __name__ == "__main__":
     assert integrate([1]) == 0
     assert integrate([10, 1]) == 0
     assert integrate([10, 100]) == 0
+
     assert integrate([1, 2, 3, 4, 5]) == 0
     assert integrate([5, 4, 3, 2, 1]) == 0
     assert integrate([5, 4, 3, 2, 1, 2, 3, 4, 5]) == 16
     assert integrate([2, 1, 2, 1, 2, 1]) == 2
     assert integrate([2, 1, 2, 1, 2, 1, 2]) == 3
+
     assert integrate([10, 2, 1, 3, 1, 2, 1, 10]) == 50
     assert integrate([10, 2, 1, 3, 1, 2, 1]) == 4
     assert integrate([10, 2, 1, 3, 1, 2, 1, 9]) == 44
+    assert integrate([10, 2, 1, 3, 1, 2, 1, 9, 2, 1, 3, 1, 2, 1, 9]) == 88
+    assert integrate([10, 2, 1, 3, 1, 2, 1, 8, 2, 1, 3, 1, 2, 1, 9]) == 89
+    assert integrate([10, 2, 1, 3, 1, 2, 1, 9, 2, 1, 3, 1, 2, 1, 10]) == 101

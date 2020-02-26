@@ -10,37 +10,43 @@ from typing import List
 Vector = List[int]
 
 
+def _str_to_map(s: str) -> dict:
+    res = {}
+    for idx in range(len(s)):
+        if s[idx] in res:
+            res[s[idx]] += 1
+        else:
+            res[s[idx]] = 1
+    return res
+
+
 def edit_distance(str1: str, str2: str) -> int:
     if not str1:
         return len(str2)
     if not str2:
         return len(str1)
-    str1_len = len(str1)
-    str2_len = len(str2)
-    shorter = str1 if str1_len < str2_len else str2
-    shorter_len = min(str1_len, str2_len)
-    longer = str2 if str1_len < str2_len else str1
-    longer_len = max(str1_len, str2_len)
-    longer_st = 0
-    max_matches = 0
-    # find the alignment with maximum matchings
-    for st in range(longer_len - shorter_len + 1):
-        matches = 0
-        for idx in range(shorter_len):
-            if shorter[idx] == longer[st + idx]:
-                matches += 1
-        if matches > max_matches:
-            max_matches = matches
-            longer_st = st
-    # count mis-alignments
-    distance = longer_st
-    for idx in range(longer_st, len(longer)):
-        if idx - longer_st < shorter_len:
-            if shorter[idx - longer_st] != longer[idx]:
-                distance += 1
+
+    map1 = _str_to_map(str1)
+    map2 = _str_to_map(str2)
+
+    common_chars = set(map1.keys()).intersection(set(map2.keys()))
+    for char in common_chars:
+        if map2[char] > map1[char]:
+            map2[char] -= map1[char]
+            map1[char] = 0
         else:
-            distance += 1
-    return distance
+            map1[char] -= map2[char]
+            map2[char] = 0
+    dist = max(sum(map1.values()), sum(map2.values()))
+
+    # check for anagrams
+    if dist == 0:
+        mismatches = 0
+        for idx in range(len(str1)):
+            if str1[idx] != str2[idx]:
+                mismatches += 1
+        dist = mismatches
+    return dist
 
 
 if __name__ == "__main__":
@@ -48,3 +54,4 @@ if __name__ == "__main__":
     assert edit_distance("abcxyz", "xyz") == 3
     assert edit_distance("abcxyz", "pqr") == 6
     assert edit_distance("mississippi", 'missouri') == 6
+    assert edit_distance("lope", "pole") == 2
