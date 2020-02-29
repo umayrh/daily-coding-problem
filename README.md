@@ -1,5 +1,9 @@
 # Daily Coding Problem
 
+### 2020-02-29 Second-max search
+
+Given the root to a binary search tree, find the second largest node in the tree.
+
 ### 2020-02-28 Small-domain sorting 
 
 Given an array of strictly the characters 'R', 'G', and 'B', segregate the values of the array so that all 
