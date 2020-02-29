@@ -35,7 +35,8 @@ def _find_longest_palindrome_substr1(s: str, s_len: int) -> (str, int, int):
 
 
 def _find_longest_palindrome_substr(s: str, s_len: int) -> (str, int, int):
-    # Runs in O(nlgn) worst-case. Looks for AA or ABA patterns
+    # Runs in O(n^2) worst-case. Looks for AA or ABA patterns.
+    # Can this be O(nlgn) is idx is incremented appropriately?
     longest = ""
     longest_st = -1
     longest_en = -1
@@ -55,12 +56,13 @@ def _find_longest_palindrome_substr(s: str, s_len: int) -> (str, int, int):
             en += 1
         st += 1
         en -= 1
-        idx = en
+        # idx = en # can I get away with jumping the gun here?
         if en - st > longest_en - longest_st:
             longest = s[st:en+1]
             longest_st = st
             longest_en = en
         idx += 1
+    print(f"{longest}, {longest_st}, {longest_en}")
     return longest, longest_st, longest_en
 
 
@@ -77,8 +79,17 @@ def make_palindrome(s: str) -> str:
         return s
     # Palindromic substring found
     if longest_st >= 0:
-        prefix = "".join([s[idx] for idx in range(s_len - 1, longest_en, -1)]) if longest_st == 0 else s
-        suffix = "".join([s[idx] for idx in range(longest_st - 1, -1, -1)]) if longest_st > 0 else s
+        if longest_st == 0:
+            prefix = "".join([s[idx] for idx in range(s_len - 1, longest_en, -1)])
+            suffix = s
+        elif longest_en == s_len - 1:
+            prefix = s
+            suffix = "".join([s[idx] for idx in range(longest_st - 1, -1, -1)])
+        else:
+            prefix = s[:longest_st]
+            suffix = s[longest_en + 1:]
+            prefix = suffix + prefix if prefix > suffix else prefix + suffix
+            suffix = longest + "".join([prefix[idx] for idx in range(len(prefix) - 1, -1, -1)])
         return prefix + suffix
     # No palindromic substring. Create lexicographically smallest palindrome.
     prefix = "".join([s[idx] for idx in range(s_len - 1, 0, -1)]) if s[0] >= s[s_len - 1] else s
@@ -91,6 +102,8 @@ if __name__ == "__main__":
     assert make_palindrome("race") == "ecarace"
     assert make_palindrome("elgoog") == "elgoogle"
     assert make_palindrome("elgoogle") == "elgoogle"
+    assert make_palindrome("lgooge") == "elgoogle"
     assert make_palindrome("mommy") == "ymmommy"
     assert make_palindrome("ooooooomooooooo1") == "1ooooooomooooooo1"
-
+    assert make_palindrome("mommommom") == "mommommom"
+    assert make_palindrome("1mommommom") == "1mommommom1"
