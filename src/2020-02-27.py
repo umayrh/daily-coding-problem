@@ -19,8 +19,8 @@ def _is_palindrome(s: str) -> bool:
     return True
 
 
-def _find_longest_palindrome_substr(s: str, s_len: int) -> (str, int, int):
-    # TODO do it in O(n) by looking at AA or ABA patterns
+def _find_longest_palindrome_substr1(s: str, s_len: int) -> (str, int, int):
+    # Naive O(n^3) algo
     longest = ""
     longest_st = -1
     longest_en = -1
@@ -31,6 +31,36 @@ def _find_longest_palindrome_substr(s: str, s_len: int) -> (str, int, int):
                 longest = substr
                 longest_st = st
                 longest_en = en
+    return longest, longest_st, longest_en
+
+
+def _find_longest_palindrome_substr(s: str, s_len: int) -> (str, int, int):
+    # Runs in O(nlgn) worst-case. Looks for AA or ABA patterns
+    longest = ""
+    longest_st = -1
+    longest_en = -1
+    idx = 1
+    while idx < s_len:
+        if s[idx] == s[idx - 1]:
+            st = idx - 1
+            en = idx
+        elif idx < s_len - 1 and s[idx - 1] == s[idx + 1]:
+            st = idx - 1
+            en = idx + 1
+        else:
+            idx += 1
+            continue
+        while st >= 0 and en < s_len and s[st] == s[en]:
+            st -= 1
+            en += 1
+        st += 1
+        en -= 1
+        idx = en
+        if en - st > longest_en - longest_st:
+            longest = s[st:en+1]
+            longest_st = st
+            longest_en = en
+        idx += 1
     return longest, longest_st, longest_en
 
 
@@ -49,12 +79,10 @@ def make_palindrome(s: str) -> str:
     if longest_st >= 0:
         prefix = "".join([s[idx] for idx in range(s_len - 1, longest_en, -1)]) if longest_st == 0 else s
         suffix = "".join([s[idx] for idx in range(longest_st - 1, -1, -1)]) if longest_st > 0 else s
-        print(f"{prefix} {suffix} {longest_st} {longest_en}")
         return prefix + suffix
     # No palindromic substring. Create lexicographically smallest palindrome.
     prefix = "".join([s[idx] for idx in range(s_len - 1, 0, -1)]) if s[0] >= s[s_len - 1] else s
     suffix = "".join([s[idx] for idx in range(s_len - 2, -1, -1)]) if s[0] < s[s_len - 1] else s
-    print(f"{prefix} {suffix} {longest_st} {longest_en}")
     return prefix + suffix
 
 
@@ -64,4 +92,5 @@ if __name__ == "__main__":
     assert make_palindrome("elgoog") == "elgoogle"
     assert make_palindrome("elgoogle") == "elgoogle"
     assert make_palindrome("mommy") == "ymmommy"
+    assert make_palindrome("ooooooomooooooo1") == "1ooooooomooooooo1"
 
