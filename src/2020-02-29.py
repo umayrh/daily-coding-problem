@@ -11,10 +11,18 @@ class Node:
 
 
 def second_max(root: Node):
+    # No self
     if root is None:
         return None
+    # No children
     if root.right is None and root.left is None:
         return None
+    # No grandchildren
+    if root.left or root.right:
+        has_left_grandkids = root.left and (root.left.left or root.left.right)
+        has_right_grandkids = root.right and (root.right.left or root.right.right)
+        if not has_left_grandkids and not has_right_grandkids:
+            return root
     node = root.right
     parent = root
     grandparent = None
@@ -23,12 +31,6 @@ def second_max(root: Node):
         grandparent = parent
         parent = node
         node = node.right
-    # Special case: the triad
-    if grandparent is None:
-        if parent.left.left is not None:
-            return parent.left
-        else:
-            return parent
     if parent.left is None:
         return grandparent
     # Or first left's right most
@@ -53,3 +55,6 @@ if __name__ == "__main__":
 
     tree = Node(37, Node(24, Node(7, Node(2)), Node(32)), Node(42, Node(42, Node(40)), Node(120)))
     assert second_max(tree).val == 42, second_max(tree).val
+
+    tree = Node(20, Node(2, None, Node(5, None, Node(7, None, Node(10)))))
+    assert second_max(tree).val == 10, second_max(tree).val
