@@ -1,5 +1,17 @@
 # Daily Coding Problem
 
+### 2020-03-04 Finding unique
+
+TODO
+
+### 2020-03-02 The N-Queens
+
+TODO
+
+### 2020-02-25 Calculating arbitrage
+
+TODO
+
 ### 2020-02-18 Reg ex
 
 Needs some major spaghetti cleanup. Can't reason about correctness.

@@ -18,22 +18,21 @@ def second_max(root: Node):
     if root.right is None and root.left is None:
         return None
     # No grandchildren
-    if root.left or root.right:
-        has_left_grandkids = root.left and (root.left.left or root.left.right)
-        has_right_grandkids = root.right and (root.right.left or root.right.right)
-        if not has_left_grandkids and not has_right_grandkids:
-            return root
+    has_left_grandkids = root.left and (root.left.left or root.left.right)
+    has_right_grandkids = root.right and (root.right.left or root.right.right)
+    if not has_left_grandkids and not has_right_grandkids:
+        return root
     node = root.right
     parent = root
     grandparent = None
-    # Right most's first left
+    # Right most's parent
     while node is not None:
         grandparent = parent
         parent = node
         node = node.right
     if parent.left is None:
         return grandparent
-    # Or first left's right most
+    # Or the first left's right most
     node = parent.left
     while node is not None:
         parent = node
