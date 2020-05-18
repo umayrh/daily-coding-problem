@@ -1,69 +1,40 @@
 """
-Given an unordered list of flights taken by someone, each represented as (origin, destination)
-pairs, and a starting airport, compute the person's itinerary. If no such itinerary exists,
-return null. If there are multiple possible itineraries, return the lexicographically
-smallest one. All flights must be used in the itinerary.
+Given a list of integers S and a target number k, write a function that returns a subset of S
+that adds up to k. If such a subset cannot be made, then return null.
 
-For example, given the list of flights `[('SFO', 'HKO'), ('YYZ', 'SFO'), ('YUL', 'YYZ'),
-('HKO', 'ORD')]` and starting airport 'YUL', you should return the list
-`['YUL', 'YYZ', 'SFO', 'HKO', 'ORD']`.
+Integers can appear more than once in the list. You may assume all numbers in the list are positive.
 
-Given the list of flights `[('SFO', 'COM'), ('COM', 'YYZ')]` and starting airport 'COM', you
-should return null.
-
-Given the list of flights `[('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'A')]` and starting
-airport 'A', you should return the list `['A', 'B', 'C', 'A', 'C']` even though
-`['A', 'C', 'A', 'B', 'C']` is also a valid itinerary. However, the first one is
-lexicographically smaller.
+For example, given S = [12, 1, 61, 5, 9, 2] and k = 24, return [12, 9, 2, 1] since it sums up to 24.
 """
-from typing import List, Set, Tuple
-import heapq
+from typing import List
+Vector = List[int]
 
 
-class Node:
-    def __init__(self, val: str):
-        self.val = val
-        self.next_nodes: list = []
-
-
-StrVector = List[str]
-NodeVector = List[Node]
-PairSet = Set[Tuple[str, str]]
-
-
-def topological_sort(vec: PairSet, st: str) -> StrVector:
-    nodes = {}
-    for src, dst in vec:
-        if dst not in nodes:
-            nodes[dst] = Node(dst)
-        if src not in nodes:
-            nodes[src] = Node(src)
-        heapq.heappush(nodes[src].next_nodes, dst)
-    if st not in nodes or not nodes[st].next_nodes:
+def _subset_sum(vec: Vector, k: int, st: int) -> Vector:
+    if not vec or st >= len(vec):
         return None
-    dst = heapq.heappop(nodes[st].next_nodes)
-    stack = [(st, dst)]
-    path = []
-    while len(stack) > 0:
-        src, dst = stack.pop()
-        path.append(src)
-        if len(nodes[dst].next_nodes) > 0:
-            src = dst
-            dst = heapq.heappop(nodes[src].next_nodes)
-            stack.append((src, dst))
-        elif len(set(path).union([dst])) == len(nodes):
-            path.append(dst)
-        else:
-            # dead-end path
-            path.pop()
-    print(f"path: {path}")
-    return path if len(path) > 0 and len(set(path)) == len(nodes) else None
+    if st >= len(vec) - 2:
+        if k in vec[st:]:
+            return [k]
+        if sum(vec[st:]) == k:
+            return vec[st:]
+        return None
+    res = _subset_sum(vec, k - vec[st], st+1)
+    if res:
+        res.append(vec[st])
+    else:
+        res = _subset_sum(vec, k, st+1)
+    return res
+
+
+def subset_sum(vec: Vector, k: int) -> Vector:
+    return _subset_sum(vec, k, 0)
 
 
 if __name__ == "__main__":
-    result = topological_sort({('SFO', 'COM'), ('COM', 'YYZ')}, 'COM')
+    result = subset_sum([12, 1, 61, 5, 9, 2], 24)
+    assert set(result) == {12, 9, 2, 1}
+    result = subset_sum([0, 0, 1, 2, 9, 8], 17)
+    assert set(result) == {9, 8, 0, 0}
+    result = subset_sum([10, 1000, 1, 2, 9, 8], 222)
     assert result is None
-    result = topological_sort({('SFO', 'HKO'), ('YYZ', 'SFO'), ('YUL', 'YYZ'), ('HKO', 'ORD')}, 'YUL')
-    assert result == ['YUL', 'YYZ', 'SFO', 'HKO', 'ORD']
-    result = topological_sort({('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'A')}, 'A')
-    assert result == ['A', 'B', 'C', 'A', 'C']
